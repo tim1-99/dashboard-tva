@@ -135,6 +135,28 @@ st.plotly_chart(fig)
 st.subheader("Numéros à traiter")
 # TODO A_TRAITER (étape 5) : la liste des invalides et des non tranchés, avec une colonne « action »,
 #          et un bouton pour la télécharger.
+# 1. Garder les lignes dont le statut n'est pas "valide" (!= veut dire « différent de »)
+a_traiter = selection[selection["statut"] != "valide"].copy()
+
+# 2. Ajouter une colonne "action" : .map remplace chaque statut par le texte associé
+a_traiter["action"] = a_traiter["statut"].map({
+    "invalide": "Demander un nouveau numéro au client",
+    "non_tranche": "Revérifier sur VIES avant la prochaine facture",
+})
+
+
+# 3. Afficher le nombre et le tableau, avec les colonnes utiles pour la comptabilité
+colonnes = ["raison_sociale", "numero_saisi", "pays_declare", "statut", "motif", "action"]
+st.write(f"{len(a_traiter)} numéros demandent une action.")
+st.dataframe(a_traiter[colonnes], hide_index=True)
+
+
+# 4. Le bouton de téléchargement
+st.download_button(
+    "Télécharger la liste",
+    a_traiter[colonnes].to_csv(index=False, sep=";").encode("utf-8-sig"),
+    file_name="numeros_a_traiter.csv",
+)
 
 # Déjà écrit : les données brutes, cachées par défaut.
 with st.expander("Voir toutes les données"):
