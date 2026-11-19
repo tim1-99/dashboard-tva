@@ -120,6 +120,14 @@ st.subheader("D'où viennent les erreurs ?")
 # TODO GRAPHIQUES (étape 4) : avec taux_invalides(selection, "source_saisie"), puis "pays_declare",
 #          deux graphiques en barres horizontales avec la valeur écrite sur chaque barre,
 #          puis une phrase (st.caption) qui explique quel canal sort du lot.
+taux = taux_invalides(selection, "source_saisie")
+fig = px.bar(taux, x="taux d'erreur (%)", y="source_saisie", orientation="h",
+             text="taux d'erreur (%)", title="Part de numéros invalides par canal de saisie")
+st.plotly_chart(fig)
+taux = taux_invalides(selection, "pays_declare")
+fig = px.bar(taux, x="taux d'erreur (%)", y="pays_declare", orientation="h",
+             text="taux d'erreur (%)", title="Part de numéros invalides par pays_declare")
+st.plotly_chart(fig)
 
 # =============================================================================
 # ÉTAPE 5 — Les numéros à traiter
