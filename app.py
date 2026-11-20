@@ -80,8 +80,7 @@ st.write(
 )
 # TODO DATE_REGLE (étape 6b) : la date de la dernière vérification VIES et la règle pour les non tranchés (st.info).
 derniere = df["date_verification"].max()
-st.info(f"Dernière vérification VIES : {derniere:%d/%m/%Y à %H:%M}. Règle : un numéro non tranché ne doit pas être facturé hors taxe " "
-    "tant qu'il n'a pas été revérifié." )
+st.info(f"Dernière vérification VIES : {derniere:%d/%m/%Y à %H:%M}. Règle : un numéro non tranché ne doit pas être facturé hors taxe " )
 
 
 
